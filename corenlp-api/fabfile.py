@@ -14,8 +14,7 @@ def install_java():
 def install_node():
     run('curl -sL https://deb.nodesource.com/setup_4.x -o nodesource_setup.sh')
     sudo('bash nodesource_setup.sh')
-    sudo('apt-get install nodejs -yq')
-    sudo('apt-get install build-essential -yq')
+    sudo('apt-get install build-essential default-jdk -yq')
 
 
 @task

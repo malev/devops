@@ -8,10 +8,14 @@ Vagrant.configure(2) do |config|
   end
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update -qq
-    apt-get install wget vim -yq
+    apt-get install wget vim build-essential -yq
     wget https://s3-us-west-2.amazonaws.com/data.codingnews.info/jre-8u91-linux-x64.tar.gz
     tar xvzf jre-8u91-linux-x64.tar.gz
     mv jre1.8.0_91 /usr/java
     ln -s /usr/java/bin/java /usr/bin/java
+
+    curl -sL https://deb.nodesource.com/setup_4.x -o nodesource_setup.sh
+    bash nodesource_setup.sh
+    sudo apt-get install default-jdk -yq
   SHELL
 end
