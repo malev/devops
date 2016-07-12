@@ -3,18 +3,21 @@ from fabric.api import sudo, run, put, task
 
 @task
 def install_java():
-    sudo('echo "java 8 installation"')
-    run('wget https://s3-us-west-2.amazonaws.com/data.codingnews.info/jre-8u91-linux-x64.tar.gz')
-    sudo('tar xvzf jre-8u91-linux-x64.tar.gz')
-    sudo('mv jre1.8.0_91 /usr/java')
-    sudo('ln -s /usr/java/bin/java /usr/bin/java')
+    run('echo "java 8 installation"')
+    sudo('apt-get install --yes python-software-properties')
+    sudo('add-apt-repository ppa:webupd8team/java')
+    sudo('apt-get update -qq')
+    sudo('echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections')
+    sudo('echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections')
+    sudo('apt-get install --yes oracle-java8-installer')
+    sudo('yes "" | apt-get -f install')
 
 
 @task
 def install_node():
     run('curl -sL https://deb.nodesource.com/setup_4.x -o nodesource_setup.sh')
     sudo('bash nodesource_setup.sh')
-    sudo('apt-get install build-essential default-jdk -yq')
+    sudo('apt-get install nodejs build-essential default-jdk -yq')
 
 
 @task
@@ -35,7 +38,7 @@ def install_api():
     put('package.json', '~')
     put('StanfordCoreNLP-spanish.properties', '~')
     run('npm install .')
-    sudo('npm install -g forever')
+    sudo('sudo npm install -g forever')
     run('forever start bin/www')
 
 @task

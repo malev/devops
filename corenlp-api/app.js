@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var routes = require('./api/index');
 app.use('/api', routes);
 
-var nlpPath = 'corenlp';
+var nlpPath = './corenlp';
 var NLPconfig = {
   nlpPath: nlpPath,
   version: '3.6.0',
@@ -29,8 +29,9 @@ var NLPconfig = {
   },
 };
 
-module.exports.coreNLP = new NLP.StanfordNLP(NLPconfig, function () {
-  console.log('NLP loaded.');
+module.exports.coreNLP = new NLP.StanfordNLP(NLPconfig, function (err, result) {
+  console.log('Error: ' + err);
+  console.log('NPL loaded');
 });
 
 // catch 404 and forward to error handler
