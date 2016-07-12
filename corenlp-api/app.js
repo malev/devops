@@ -18,7 +18,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var routes = require('./api/index');
 app.use('/api', routes);
 
-var nlpPath = './corenlp';
+var  nlpPath = './corenlp';
+if ('CORENLP_LOC' in process.env) {
+  nlpPath = process.env.CORENLP_LOC;
+}
+
+console.log('Using ' + nlpPath);
 var NLPconfig = {
   nlpPath: nlpPath,
   version: '3.6.0',
