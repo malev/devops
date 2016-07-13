@@ -1,0 +1,20 @@
+app_1:
+    image: malev/corenlp
+    ports:
+        - 3001:3000
+app_2:
+    image: malev/corenlp
+    ports:
+        - 3002:3000
+app_3:
+    image: malev/corenlp
+    ports:
+        - 3003:3000
+app_4:
+    image: malev/corenlp
+    ports:
+        - 3004:3000
+app_5:
+    image: malev/corenlp
+    ports:
+        - 3005:3000

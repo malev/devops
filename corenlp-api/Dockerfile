@@ -25,10 +25,12 @@ RUN unzip master.zip
 RUN mv devops-master/corenlp-api/ api
 RUN rm master.zip
 RUN rm -rf devops-master
+ENV CORENLP_LOC /root/corenlp
 
+# Run API server
 WORKDIR /root/api
 RUN npm install .
 RUN npm install forever -g
 
-EXPOSE 3000
+CMD bin/www
 
