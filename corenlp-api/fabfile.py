@@ -9,7 +9,10 @@ def install_java():
     sudo('apt-get update -qq')
     sudo('echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections')
     sudo('echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections')
+    sudo('echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections')
     sudo('apt-get install --yes oracle-java8-installer')
+    sudo('update-java-alternatives -s java-8-oracle')
+    sudo('apt-get install oracle-java8-set-default')
     sudo('yes "" | apt-get -f install')
 
 
@@ -17,7 +20,7 @@ def install_java():
 def install_node():
     run('curl -sL https://deb.nodesource.com/setup_4.x -o nodesource_setup.sh')
     sudo('bash nodesource_setup.sh')
-    sudo('apt-get install nodejs build-essential default-jdk -yq')
+    sudo('apt-get install nodejs build-essential -yq')
 
 
 @task
@@ -47,3 +50,20 @@ def install():
     install_node()
     install_corenlp()
     install_api()
+
+
+@task
+def dockerize():
+    # Docker
+    sudo('apt-get install nginx -yq')
+    sudo('rm /etc/nginx/sites-enabled/default')
+    sudo('apt-get install apt-transport-https ca-certificates -yq')
+    sudo('sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D')
+    sudo('echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list')
+    sudo('apt-get update -yq')
+    sudo('apt-get install docker-engine -yq')
+    # Docker-compose
+    sudo('apt-get install python-pip')
+    sudo('pip install docker-compose')
+    put('docker-compose.yml')
+    
