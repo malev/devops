@@ -2,6 +2,7 @@ version: '2'
 services:
   app1:
     build: .
+    image: malev/corenlp
     hostname: app1
     ports:
       - 3001:3001
@@ -9,6 +10,7 @@ services:
       PORT: 3001
   app2:
     build: .
+    image: malev/corenlp
     hostname: app2
     ports:
       - 3002:3002
@@ -16,6 +18,7 @@ services:
       PORT: 3002
   app3:
     build: .
+    image: malev/corenlp
     hostname: app3
     ports:
       - 3003:3003
@@ -23,6 +26,7 @@ services:
       PORT: 3003
   app4:
     build: .
+    image: malev/corenlp
     hostname: app4
     ports:
       - 3004:3004
@@ -30,6 +34,7 @@ services:
       PORT: 3004
   app5:
     build: .
+    image: malev/corenlp
     hostname: app5
     ports:
       - 3005:3005
