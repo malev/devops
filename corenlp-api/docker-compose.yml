@@ -1,20 +1,44 @@
-app_1:
-    image: malev/corenlp
+version: '2'
+services:
+  app1:
+    build: .
+    hostname: app1
     ports:
-        - 3001:3000
-app_2:
-    image: malev/corenlp
+      - 3001:3001
+    environment:
+      PORT: 3001
+  app2:
+    build: .
+    hostname: app2
     ports:
-        - 3002:3000
-app_3:
-    image: malev/corenlp
+      - 3002:3002
+    environment:
+      PORT: 3002
+  app3:
+    build: .
+    hostname: app3
     ports:
-        - 3003:3000
-app_4:
-    image: malev/corenlp
+      - 3003:3003
+    environment:
+      PORT: 3003
+  app4:
+    build: .
+    hostname: app4
     ports:
-        - 3004:3000
-app_5:
-    image: malev/corenlp
+      - 3004:3004
+    environment:
+      PORT: 3004
+  app5:
+    build: .
+    hostname: app5
     ports:
-        - 3005:3000
+      - 3005:3005
+    environment:
+      PORT: 3005
+
+  loadbalancer:
+      image: nginx
+      ports:
+          - 8080:80
+      volumes:
+          - ./corenlp.conf:/etc/nginx/conf.d/default.conf:ro
