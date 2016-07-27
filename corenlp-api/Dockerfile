@@ -30,7 +30,6 @@ ENV CORENLP_LOC /root/corenlp
 # Run API server
 WORKDIR /root/api
 RUN npm install .
-RUN npm install forever -g
 
-CMD bin/www
+CMD node bin/www
 

@@ -8,6 +8,7 @@ services:
       - 3001:3001
     environment:
       PORT: 3001
+    restart: always
   app2:
     build: .
     image: malev/corenlp
@@ -16,6 +17,7 @@ services:
       - 3002:3002
     environment:
       PORT: 3002
+    restart: always
   app3:
     build: .
     image: malev/corenlp
@@ -24,6 +26,7 @@ services:
       - 3003:3003
     environment:
       PORT: 3003
+    restart: always
   app4:
     build: .
     image: malev/corenlp
@@ -32,14 +35,7 @@ services:
       - 3004:3004
     environment:
       PORT: 3004
-  app5:
-    build: .
-    image: malev/corenlp
-    hostname: app5
-    ports:
-      - 3005:3005
-    environment:
-      PORT: 3005
+    restart: always
 
   loadbalancer:
       image: nginx
@@ -47,3 +43,12 @@ services:
           - 8080:80
       volumes:
           - ./corenlp.conf:/etc/nginx/conf.d/default.conf:ro
+  cadvisor:
+    image: google/cadvisor
+    ports:
+      - 8000:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
