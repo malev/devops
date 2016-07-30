@@ -25,30 +25,32 @@ docker run -it malev/vita-toolchain bash
 And you'll have an Ubuntu 14.04 with the toolchain installed in
 `/usr/local/vitasdk` among other useful tools.
 
-## Hello World
-
-```
-git clone https://github.com/vitasdk/samples
-docker run -it -d samples:/root/samples
-cd /root/samples
-chmod +x build.sh
-./build.sh
-```
-
-You will see the compiled files in:
-
-  - `hello_world/`
-  - `hello_cpp_world/`
-
 ## VitaHelloWorld
 
 ```
 git clone https://github.com/xerpi/vitahelloworld
-docker run -it -d samples:/root/samples
+docker run -it -v $PWD/vitahelloworld:/root/vitahelloworld malev/vita-toolchain bash
+cd vitahelloworld
+make all
 ```
+
+And we will be able to see the package `vitahelloworld.vpk`.
 
 ## FTPVitaLib
 
+```
+git clone https://github.com/xerpi/ftpvitalib.git
+docker run -it -v $PWD/ftpvitalib:/root/ftpvitalib malev/vita-toolchain bash
+cd ftpvitalib/libftpvita
+make install
+
+cd ../sample/
+make all
+```
+
+And again we will have `FTPVita.vpk` ready to go!
+
+## References
 
 [1] https://bintray.com/package/files/vitasdk/vitasdk/toolchain?order=desc&sort=fileLastModified&basePath=&tab=files
 [2] https://github.com/vitasdk/buildscripts
