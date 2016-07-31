@@ -39,10 +39,16 @@ RUN make
 RUN make install
 RUN apt-get install libzip-dev -yq
 
+# Installing vita-pack-vpk
 WORKDIR /root
 RUN wget http://sprunge.us/UiaL -O vita-pack-vpk.c -q
 RUN cc -o vita-pack-vpk vita-pack-vpk.c $(pkg-config --libs --cflags libzip)
 RUN mv vita-pack-vpk $VITASDK/bin
+
+# Installing libpng
+WORKDIR /root
+RUN wget https://bintray.com/vitadev/dist/download_file?file_path=vitasdk-libpng-1.6.23.tar.xz -O vitasdk-libpng-1.6.23.tar.xz
+RUN tar xf vitasdk-libpng-1.6.23.tar.xz -C "${VITASDK}"
 
 # Cleanup
 
@@ -51,3 +57,4 @@ RUN rm -rf /root/vita_portlibs
 RUN rm -rf /root/vita2dlib
 RUN rm -rf /root/libzip-1.1.3
 RUN rm libzip-1.1.3.tar.xz vita-pack-vpk.c
+RUN rm vitasdk-libpng-1.6.23.tar.xz
