@@ -10,7 +10,6 @@ RUN ./miniconda.sh -b -p /root/miniconda2
 ENV PATH=/root/miniconda2/bin:$PATH
 
 RUN /root/miniconda2/bin/conda install anaconda-client conda-build anaconda-build -y
-RUN /root/miniconda2/bin/conda install pill -c malev -y
 
 RUN git config --global user.email "marcosvanetta@gmail.com"
 RUN git config --global user.name "malev"
